@@ -11,11 +11,17 @@
 
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
+    <form th:action="@{/logout}" method="post">
+        <button class="w-100 btn btn-dark btn-lg" onclick="location.href='items.html'" type="submit">
+            로그아웃
+        </button>
+    </form>
+
     <div class="jumbotron">
         <h1>USED DEAL</h1>
         <p class="lead">회원 기능</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/new">회원 가입</a>
+            <a class="btn btn-lg btn-secondary" href="/members/new">마이페이지</a>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
         <p class="lead">상품 기능</p>
