@@ -10,7 +10,12 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="py-5 text-center">
+        <h2>회원 가입</h2>
+    </div>
+
+    <h4 class="mb-3">회원 정보 입력</h4>
 
     <form role="form" action="/members/new" th:object="${memberForm}" method="post">
 

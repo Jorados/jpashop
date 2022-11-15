@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<header th:fragment="login_body_header" class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-5 border-bottom">
+    <a href="#" th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+        <span class="home fs-4">중고 거래</span>
+    </a>
+
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" th:href="@{/member/logout}" class="nav-link text-muted">로그아웃</a></li>
+    </ul>
+</header>

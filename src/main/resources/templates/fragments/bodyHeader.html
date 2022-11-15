@@ -1,13 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
-<header th:fragment="bodyHeader" class="d-flex flex-wrap justify-content-center py-3 mb-4 mx-5 border-bottom">
-    <a href="#" th:href="@{/}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-        <span class="home fs-4">중고 거래</span>
-    </a>
-
-    <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" th:href="@{/members/new}" class="nav-link text-muted">회원가입</a></li>
-        <li class="nav-item"><a href="#" th:href="@{/login}" class="nav-link text-muted">로그인</a></li>
+<div class="header" th:fragment="bodyHeader">
+    <ul class="nav nav-pills pull-right">
+        <li><a href="/">Home</a></li>
     </ul>
-</header>
+    <a href="/"><h3 class="text-muted">중고 서점</h3></a>
+</div>

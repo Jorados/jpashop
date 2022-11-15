@@ -4,8 +4,7 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
-
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <form th:object="${form}" method="post">
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
