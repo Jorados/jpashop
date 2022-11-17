@@ -38,7 +38,6 @@ public class InitDb {
         private final EntityManager em;
 
         public void dbInit1() {
-            System.out.println("Init1" + this.getClass());
             Member member = createMember("userA", "서울", "1", "1111","test1","1234");
             em.persist(member);
 

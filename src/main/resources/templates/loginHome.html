@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-    <title>중고 서점</title>
+    <title>성진 서점</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <head th:replace="fragments/header :: header">
 </head>
@@ -19,10 +19,15 @@
     </form>
 
     <div class="jumbotron">
-        <h1>중고 서점</h1>
+
+        <h1>성진 서점</h1>
+
+        <h5 class="py-3" th:text="${member.id} + ' 번 고객 ' + ${member.name} + '님 안녕하세요'">아이디 넘버</h5>
+
+
         <p class="lead">회원 기능</p>
         <p>
-            <a class="btn btn-lg btn-secondary" href="/members/new">개인 정보</a>
+            <a class="btn btn-lg btn-secondary" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
             <a class="btn btn-lg btn-secondary" href="/members">회원 목록</a>
         </p>
         <p class="lead">상품 기능</p>

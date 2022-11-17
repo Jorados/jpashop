@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -23,6 +25,26 @@ public class MemberController {
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
         return "members/createMemberForm";
+    }
+
+    @GetMapping("/members/{memberId}/myPage")
+    public String MyPageForm(@PathVariable("memberId") Long memberId,Model model){
+        Member findMember = memberService.findOne(memberId);
+
+        MemberForm form = new MemberForm();
+        form.setName(findMember.getName());
+        form.setLoginId(findMember.getLoginId());
+        form.setPassword(findMember.getPassword());
+        form.setAddress(findMember.getAddress());
+
+        model.addAttribute("form", form);
+        return "members/myPageForm";
+    }
+
+    @PostMapping("/members/{memberId}/myPage")
+    public String updateMember(@PathVariable Long memberId, @ModelAttribute("form") MemberForm form) {
+        memberService.updateMember(memberId, form.getName(), form.getLoginId(), form.getPassword());
+        return "redirect:/";
     }
 
     @PostMapping("/members/new")

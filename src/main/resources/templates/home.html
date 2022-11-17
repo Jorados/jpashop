@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
-    <title>중고 서점</title>
+    <title>성진 서점</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <head th:replace="fragments/header :: header">
 </head>
@@ -9,23 +9,25 @@
 <body>
 <!--<div th:replace="fragments/bodyHeader :: bodyHeader" />-->
 <div class="container" style="max-width: 600px">
+
     <div class="py-5 text-center">
-        <h2>중고 서점</h2>
+        <h2>성진 서점</h2>
     </div>
 
     <div class="row">
+
         <div class="col">
-            <button class="w-100 btn btn-primary btn-lg" type="button"
-                    th:onclick="|location.href='@{/members/new}'|">
+            <button class="w-100 btn btn-primary btn-lg" type="button" th:onclick="|location.href='@{/members/new}'|">
                 회원 가입
             </button>
         </div>
+
         <div class="col">
-            <button class="w-100 btn btn-primary btn-lg" onclick="location.href='items.html'"
-                    th:onclick="|location.href='@{/login}'|" type="button">
+            <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/login}'|" >
                 로그인
             </button>
         </div>
+
     </div>
 
     <hr class="my-4">
