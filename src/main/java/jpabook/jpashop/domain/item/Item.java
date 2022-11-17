@@ -4,7 +4,6 @@ import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,6 +26,12 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
+
+//    private UploadFile attachFile;
+//    private List<UploadFile> imageFiles;
+
+
+
 
     //==비즈니스 로직==//
     /**

@@ -5,6 +5,12 @@ spring:
     password: cho980625
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+      maxRequestSize: 50MB
+
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -15,8 +21,17 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+  org.apache.coyote.http11 : debug
 #  org.hibernate.type: trace
+
+file:
+  dir: C:/Users/seong/OneDrive/Spring/
 
 #configuring port
   #server:
     #port : 7070
+
+#logging.level.org.apache.coyote.http11=debug
+#file.dir=C:/Users/seong/OneDrive/Spring/
+#spring.servlet.multipart.maxFileSize=50MB
+#spring.servlet.multipart.maxRequestSize=50MB

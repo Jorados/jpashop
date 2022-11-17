@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -18,6 +20,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+    //private final FileStore fileStore;
 
     @GetMapping("/items/new")
     public String createForm(Model model) {
@@ -26,7 +29,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String create(BookForm form) {
+    public String create(BookForm form, RedirectAttributes redirectAttributes){
 
         Book book = new Book();
         book.setName(form.getName());
@@ -36,6 +39,7 @@ public class ItemController {
         book.setIsbn(form.getIsbn());
 
         itemService.saveItem(book);
+        //redirectAttributes.addAttribute("itemId", book.getId());
         return "redirect:/";
     }
 

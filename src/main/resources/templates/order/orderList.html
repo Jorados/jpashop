@@ -1,6 +1,9 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"/>
+<script>
+    var num = 1;
+</script>
 <body>
 
 <div class="container">
@@ -41,7 +44,11 @@
             </thead>
             <tbody>
             <tr th:each="item : ${orders}">
-                <td th:text="${item.id}"></td>
+                <td>
+                    <script>
+                        document.write(num++);
+                    </script>
+                </td>
                 <td th:text="${item.member.name}"></td>
                 <td th:text="${item.orderItems[0].item.name}"></td>
                 <td th:text="${item.orderItems[0].orderPrice}"></td>
