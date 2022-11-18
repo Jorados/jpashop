@@ -1,8 +1,9 @@
-package jpabook.jpashop.domain.item;
+package jpabook.jpashop.domain;
 
-import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,10 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@DiscriminatorColumn(name = "dtype")
 @Getter @Setter
-public abstract class Item {
+@NoArgsConstructor
+public class Item {
 
     @Id
     @GeneratedValue
@@ -27,9 +29,13 @@ public abstract class Item {
     @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 
-//    private UploadFile attachFile;
-//    private List<UploadFile> imageFiles;
+    private String author;
+    private String isbn;
 
+    @Embedded
+    private UploadFile attachFile;
+    @Embedded
+    private List<UploadFile> imageFiles;
 
 
 
@@ -51,4 +57,5 @@ public abstract class Item {
         }
         this.stockQuantity = restStock;
     }
+
 }

@@ -4,8 +4,7 @@ import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.domain.item.Book;
-import jpabook.jpashop.domain.item.Item;
+import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import jpabook.jpashop.repository.OrderRepository;
 import org.junit.Test;
@@ -33,7 +32,7 @@ public class OrderServiceTest {
         //given
         Member member = createMember();
 
-        Book book = createBook("시골 JPA", 10000, 10);
+        Item book = createBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
 
@@ -68,7 +67,7 @@ public class OrderServiceTest {
     public void 주문취소() throws Exception {
         //given
         Member member = createMember();
-        Book item = createBook("시골 JPA", 10000, 10);
+        Item item = createBook("시골 JPA", 10000, 10);
 
         int orderCount = 2;
 
@@ -84,8 +83,8 @@ public class OrderServiceTest {
         assertEquals("주문이 취소된 상품은 그만큼 재고가 증가해야 한다.", 10, item.getStockQuantity());
     }
 
-    private Book createBook(String name, int price, int stockQuantity) {
-        Book book = new Book();
+    private Item createBook(String name, int price, int stockQuantity) {
+        Item book = new Item();
         book.setName(name);
         book.setPrice(price);
         book.setStockQuantity(stockQuantity);

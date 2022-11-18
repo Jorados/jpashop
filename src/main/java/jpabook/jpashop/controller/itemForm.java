@@ -1,22 +1,22 @@
 package jpabook.jpashop.controller;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-@Getter @Setter
-public class BookForm {
+@Data
+public class itemForm {
 
     private Long id;
     private String name;
+    private int price;
+    private int stockQuantity;
 
     private MultipartFile attachFile;
     private List<MultipartFile> imageFiles;
-
-    private int price;
-    private int stockQuantity;
 
     private String author;
     private String isbn;

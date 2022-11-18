@@ -24,8 +24,8 @@
             <input type="text" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력하세요" />
         </div>
 
-        <button type="submit" class="btn btn-primary" th:onclick="|location.href='@{/loginHome}'|">확인</button>
-        <button type="submit" class="btn btn-dark" th:onclick="|location.href='@{/members/{memberId}/myPage}'|">정보 수정</button>
+
+        <button type="submit" class="btn btn-primary" th:onclick="|location.href='@{/members/{memberId}/myPage}'|">정보 수정</button>
     </form>
 
     <div th:replace="fragments/footer :: footer" />
