@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -26,16 +29,24 @@ public class Item {
     private int price;
     private int stockQuantity;
 
-    @ManyToMany(mappedBy = "items")
-    private List<Category> categories = new ArrayList<>();
+    @JsonIgnore
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
+//    @ManyToMany(mappedBy = "items")
+//    private List<Category> categories = new ArrayList<>();
 
     private String author;
     private String isbn;
 
     @Embedded
     private UploadFile attachFile;
-    @Embedded
-    private List<UploadFile> imageFiles;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    private List<UploadFile2> imageFiles;
+
+
 
 
 

@@ -2,6 +2,7 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.UploadFile;
+import jpabook.jpashop.domain.UploadFile2;
 import jpabook.jpashop.file.FileStore;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,8 @@ public class ItemController {
     public String create(itemForm form, RedirectAttributes redirectAttributes) throws IOException {
 
         UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
-        List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+        //List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+        List<UploadFile2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());
 
         Item bookItem = new Item();
         bookItem.setName(form.getName());
@@ -71,23 +73,23 @@ public class ItemController {
 
     //업로드 파일 다운로드
     //다운
-    @GetMapping("/attach/{itemId}")
-    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
-        Item item = itemService.findOne(itemId);
-        String storeFileName = item.getAttachFile().getStoreFileName();
-        String uploadFileName = item.getAttachFile().getUploadFileName();
-
-        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-
-        log.info("uploadFileName={}", uploadFileName);
-
-        String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
-        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-                .body(resource);
-    }
+//    @GetMapping("/attach/{itemId}")
+//    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
+//        Item item = itemService.findOne(itemId);
+//        String storeFileName = item.getAttachFile().getStoreFileName();
+//        String uploadFileName = item.getAttachFile().getUploadFileName();
+//
+//        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
+//
+//        log.info("uploadFileName={}", uploadFileName);
+//
+//        String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
+//        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
+//
+//        return ResponseEntity.ok()
+//                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+//                .body(resource);
+//    }
 
 
     //상품목록

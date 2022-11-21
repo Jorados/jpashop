@@ -29,4 +29,10 @@ public class ItemRepository {
         return em.createQuery("select i from Item i", Item.class)
                 .getResultList();
     }
+
+    //이미지 파일  찾기
+    public List<Item> findImageFiles(){
+        return em.createQuery("",Item.class)
+                .getResultList();
+    }
 }
