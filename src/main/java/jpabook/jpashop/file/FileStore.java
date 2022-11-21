@@ -1,7 +1,7 @@
 package jpabook.jpashop.file;
 
 import jpabook.jpashop.domain.UploadFile;
-import jpabook.jpashop.domain.UploadFile2;
+import jpabook.jpashop.domain.Attachment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,8 +32,8 @@ public class FileStore {
         return storeFileResult;
     }
 
-    public List<UploadFile2> storeFiles2(List<MultipartFile> multipartFiles) throws IOException {
-        List<UploadFile2> storeFileResult = new ArrayList<>();
+    public List<Attachment> storeFiles2(List<MultipartFile> multipartFiles) throws IOException {
+        List<Attachment> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 storeFileResult.add(storeFile2(multipartFile));
@@ -54,7 +54,7 @@ public class FileStore {
 
     }
 
-    public UploadFile2 storeFile2(MultipartFile multipartFile) throws IOException {
+    public Attachment storeFile2(MultipartFile multipartFile) throws IOException {
         if (multipartFile.isEmpty()) {
             return null;
         }
@@ -62,7 +62,7 @@ public class FileStore {
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
-        return new UploadFile2(originalFilename, storeFileName);
+        return new Attachment(originalFilename, storeFileName);
 
     }
 
