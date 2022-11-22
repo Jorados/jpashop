@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jpabook.jpashop.domain.embedded.UploadFile;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,11 +42,7 @@ public class Item {
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    private List<Attachment> imageFiles = new ArrayList<>();
-
-
-
-
+    private List<UploadFIle2> attachedFiles = new ArrayList<>();
 
     //==비즈니스 로직==//
     /**

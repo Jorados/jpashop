@@ -42,6 +42,19 @@
             <input type="file" multiple="multiple" name="imageFiles" class="form-control">
         </div>
 
+<!--        <div >-->
+<!--            <img th:each="imageFile : ${item.imageFiles}"-->
+<!--                 th:if="${imageFile.attachmentType == T(jpabook.jpashop.domain.enumFile.AttachmentType).IMAGE}"-->
+<!--                 th:src="@{/images/{imageFile}(imageFile=${imageFile.storeFilename})}" width="300" height="300" style="margin-right: 5px"/>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <a th:each="generalFile : ${item.generalFiles}"-->
+<!--               th:if="${generalFile.attachmentType == T(jpabook.jpashop.domain.enumFile.AttachmentType).GENERAL}"-->
+<!--               th:href="@{/attaches/{generalFile}(generalFile=${generalFile.storeFilename}, originName=${generalFile.originFilename})}"-->
+<!--               th:text="${generalFile.originFilename}" style="margin-right: 5px"/><br/>-->
+<!--        </div>-->
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br/>

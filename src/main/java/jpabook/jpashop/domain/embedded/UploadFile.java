@@ -1,4 +1,4 @@
-package jpabook.jpashop.domain;
+package jpabook.jpashop.domain.embedded;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -18,8 +18,5 @@ public class UploadFile {
     public UploadFile(String uploadFileName, String storeFileName) {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
-    }
-
-    public UploadFile() {
     }
 }

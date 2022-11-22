@@ -1,7 +1,7 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Item;
-import jpabook.jpashop.domain.Attachment;
+import jpabook.jpashop.domain.UploadFIle2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -40,7 +40,7 @@ public class ItemRepository {
 //    }
 
     //이너조인
-    public List<Item> findImageFiles2(Attachment storeFileName){
+    public List<Item> findImageFiles2(UploadFIle2 storeFileName){
         return em.createQuery("select i from Item i inner join i.UploadFile2 u WHERE u.storeFileName =:storeFileName",Item.class)
                 .setParameter("storeFileName", storeFileName)
                 .getResultList();
