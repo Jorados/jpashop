@@ -10,7 +10,6 @@
 <body>
 
 <div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="py-5 text-center">
         <h2>회원 가입</h2>
     </div>
@@ -52,7 +51,18 @@
             <input type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
         </div>
 
-        <button type="submit" class="btn btn-primary">가입</button>
+        <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="w-100 btn btn-primary">가입</button>
+                </div>
+                <div class="col">
+                    <button class="w-100 btn btn-dark" onclick="location.href='home.html'"
+                            th:onclick="|location.href='@{/}'|" type="button">취소</button>
+                </div>
+            </div>
+        </div>
+
     </form>
     <br/>
     <div th:replace="fragments/footer :: footer" />

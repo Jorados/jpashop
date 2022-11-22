@@ -59,7 +59,6 @@ public class ItemController {
         //bookItem.setImageFiles(imageFiles);
 
         itemService.saveItem(bookItem);
-       // redirectAttributes.addAttribute("imageFiles",imageFiles);
         redirectAttributes.addAttribute("itemId", bookItem.getId());
         log.info("bookItem.getItemText()={}",bookItem.getItemText());
         return "redirect:/items/{itemId}";
@@ -119,6 +118,7 @@ public class ItemController {
         form.setStockQuantity(item.getStockQuantity());
         form.setAuthor(item.getAuthor());
         form.setIsbn(item.getIsbn());
+        form.setItemText(item.getItemText());
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
@@ -135,7 +135,7 @@ public class ItemController {
         form.setStockQuantity(item.getStockQuantity());
         form.setAuthor(item.getAuthor());
         form.setIsbn(item.getIsbn());
-
+        form.setItemText(item.getItemText());
         model.addAttribute("form", form);
         return "items/readItemForm";
     }

@@ -19,6 +19,8 @@
             <h1>성진 서점</h1>
             <h5 class="py-3" th:text="${member.name} + ' 님 안녕하세요'"></h5>
 
+            <img class="note" src="https://user-images.githubusercontent.com/100845256/203355290-93fc8212-b417-441c-8a67-a91000592be5.png" height="250" width="250" align="right">
+
             <form th:action="@{/logout}" method="post">
                 <button class="btn btn-dark btn-lg " type="submit">
                     로그아웃
