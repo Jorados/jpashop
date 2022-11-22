@@ -1,5 +1,6 @@
 package jpabook.jpashop.controller;
 
+import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.UploadFile;
 import jpabook.jpashop.domain.UploadFile2;
@@ -40,7 +41,6 @@ public class ItemController {
     public String create(itemForm form, RedirectAttributes redirectAttributes) throws IOException {
 
         UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
-        //List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
         List<UploadFile2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());
 
         Item bookItem = new Item();

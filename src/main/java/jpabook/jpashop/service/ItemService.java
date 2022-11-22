@@ -36,4 +36,8 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
 
+    public  List<Item> findUploadFile(String storeImageFiles){
+        return itemRepository.findImageFiles(storeImageFiles);
+    }
+
 }

@@ -1,5 +1,6 @@
 package jpabook.jpashop.controller;
 
+import jpabook.jpashop.controller.form.LoginForm;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.LoginService;
 import jpabook.jpashop.session.SessionConst;
