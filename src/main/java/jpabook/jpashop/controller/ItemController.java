@@ -2,10 +2,11 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.Item;
-import jpabook.jpashop.domain.UploadFile;
+import jpabook.jpashop.domain.embedded.UploadFile;
 import jpabook.jpashop.domain.UploadFile2;
 import jpabook.jpashop.file.FileStore;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.UploadFile2Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -30,6 +31,7 @@ public class ItemController {
 
     private final ItemService itemService;
     private final FileStore fileStore;
+    private final UploadFile2Service uploadFile2Service;
 
     @GetMapping("/items/new")
     public String createForm(Model model) {
@@ -49,11 +51,17 @@ public class ItemController {
         bookItem.setStockQuantity(form.getStockQuantity());
         bookItem.setAuthor(form.getAuthor());
         bookItem.setIsbn(form.getIsbn());
+        bookItem.setItemText(form.getItemText());
         bookItem.setAttachFile(attachFile);
         bookItem.setImageFiles(storeImageFiles);
 
+        List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
+        //bookItem.setImageFiles(imageFiles);
+
         itemService.saveItem(bookItem);
+       // redirectAttributes.addAttribute("imageFiles",imageFiles);
         redirectAttributes.addAttribute("itemId", bookItem.getId());
+        log.info("bookItem.getItemText()={}",bookItem.getItemText());
         return "redirect:/items/{itemId}";
     }
 
@@ -114,6 +122,22 @@ public class ItemController {
 
         model.addAttribute("form", form);
         return "items/updateItemForm";
+    }
+
+    @GetMapping("items/{itemId}/readItem")
+    public String readItemForm(@PathVariable("itemId") Long itemId, Model model) {
+        Item item = (Item) itemService.findOne(itemId);
+
+        itemForm form = new itemForm();
+        form.setId(item.getId());
+        form.setName(item.getName());
+        form.setPrice(item.getPrice());
+        form.setStockQuantity(item.getStockQuantity());
+        form.setAuthor(item.getAuthor());
+        form.setIsbn(item.getIsbn());
+
+        model.addAttribute("form", form);
+        return "items/readItemForm";
     }
 
     @PostMapping("items/{itemId}/edit")

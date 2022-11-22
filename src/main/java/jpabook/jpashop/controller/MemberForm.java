@@ -1,6 +1,6 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.domain.Address;
+import jpabook.jpashop.domain.embedded.Address;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -22,7 +22,7 @@
                 <div class="form-group mx-sm-1 mb-2">
                     <select th:field="*{orderStatus}" class="form-control">
                         <option value="">주문상태</option>
-                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"
+                        <option th:each="status : ${T(jpabook.jpashop.domain.enumFile.OrderStatus).values()}"
                                 th:value="${status}"
                                 th:text="${status}">option
                         </option>
@@ -36,10 +36,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>회원명</th>
-                <th>대표상품 이름</th>
-                <th>대표상품 주문가격</th>
-                <th>대표상품 주문수량</th>
+                <th>이름</th>
+                <th>상품명</th>
+                <th>가격</th>
+                <th>수</th>
                 <th>상태</th>
                 <th>일시</th>
                 <th></th>

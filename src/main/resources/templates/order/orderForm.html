@@ -14,8 +14,7 @@
         <div class="form-group">
             <label for="member">주문회원</label>
             <select name="memberId" id="member" class="form-control">
-                <option value="">회원선택</option>
-                <option th:each="member : ${members}"
+                <option th:each="member : ${findMember}"
                         th:value="${member.id}"
                         th:text="${member.name}" />
             </select>

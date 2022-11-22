@@ -1,8 +1,8 @@
 package jpabook.jpashop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jpabook.jpashop.domain.embedded.UploadFile;
 import jpabook.jpashop.exception.NotEnoughStockException;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -38,6 +36,7 @@ public class Item {
 
     private String author;
     private String isbn;
+    private String itemText;
 
     @Embedded
     private UploadFile attachFile;

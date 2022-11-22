@@ -20,4 +20,5 @@ public class itemForm {
 
     private String author;
     private String isbn;
+    private String itemText;
 }
