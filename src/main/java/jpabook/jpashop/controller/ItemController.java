@@ -1,8 +1,9 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.domain.UploadFIle2;
+import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.Item;
-import jpabook.jpashop.domain.embedded.UploadFile;
+import jpabook.jpashop.domain.UploadFile;
+import jpabook.jpashop.domain.UploadFile2;
 import jpabook.jpashop.file.FileStore;
 import jpabook.jpashop.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,7 @@ public class ItemController {
     public String create(itemForm form, RedirectAttributes redirectAttributes) throws IOException {
 
         UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
-        List<UploadFIle2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());
+        List<UploadFile2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());
 
         Item bookItem = new Item();
         bookItem.setName(form.getName());
@@ -49,10 +50,9 @@ public class ItemController {
         bookItem.setAuthor(form.getAuthor());
         bookItem.setIsbn(form.getIsbn());
         bookItem.setAttachFile(attachFile);
-        bookItem.setAttachedFiles(storeImageFiles);
+        bookItem.setImageFiles(storeImageFiles);
 
         itemService.saveItem(bookItem);
-        //itemService.findUploadFile(storeImageFiles);
         redirectAttributes.addAttribute("itemId", bookItem.getId());
         return "redirect:/items/{itemId}";
     }

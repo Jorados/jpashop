@@ -1,7 +1,7 @@
 package jpabook.jpashop.file;
 
-import jpabook.jpashop.domain.UploadFIle2;
-import jpabook.jpashop.domain.embedded.UploadFile;
+import jpabook.jpashop.domain.UploadFile;
+import jpabook.jpashop.domain.UploadFile2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,8 +22,18 @@ public class FileStore {
         return fileDir + filename;
     }
 
-    public List<UploadFIle2> storeFiles2(List<MultipartFile> multipartFiles) throws IOException {
-        List<UploadFIle2> storeFileResult = new ArrayList<>();
+    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+        List<UploadFile> storeFileResult = new ArrayList<>();
+        for (MultipartFile multipartFile : multipartFiles) {
+            if (!multipartFile.isEmpty()) {
+                storeFileResult.add(storeFile(multipartFile));
+            }
+        }
+        return storeFileResult;
+    }
+
+    public List<UploadFile2> storeFiles2(List<MultipartFile> multipartFiles) throws IOException {
+        List<UploadFile2> storeFileResult = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
             if (!multipartFile.isEmpty()) {
                 storeFileResult.add(storeFile2(multipartFile));
@@ -40,11 +50,11 @@ public class FileStore {
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
-
         return new UploadFile(originalFilename, storeFileName);
+
     }
 
-    public UploadFIle2 storeFile2(MultipartFile multipartFile) throws IOException {
+    public UploadFile2 storeFile2(MultipartFile multipartFile) throws IOException {
         if (multipartFile.isEmpty()) {
             return null;
         }
@@ -52,8 +62,8 @@ public class FileStore {
         String originalFilename = multipartFile.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
         multipartFile.transferTo(new File(getFullPath(storeFileName)));
+        return new UploadFile2(originalFilename, storeFileName);
 
-        return new UploadFIle2(originalFilename, storeFileName);
     }
 
     private String createStoreFileName(String originalFilename) {
