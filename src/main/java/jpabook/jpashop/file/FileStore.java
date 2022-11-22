@@ -1,5 +1,4 @@
 package jpabook.jpashop.file;
-
 import jpabook.jpashop.domain.UploadFile;
 import jpabook.jpashop.domain.UploadFile2;
 import org.springframework.beans.factory.annotation.Value;

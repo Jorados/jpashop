@@ -73,23 +73,23 @@ public class ItemController {
 
     //업로드 파일 다운로드
     //다운
-//    @GetMapping("/attach/{itemId}")
-//    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
-//        Item item = itemService.findOne(itemId);
-//        String storeFileName = item.getAttachFile().getStoreFileName();
-//        String uploadFileName = item.getAttachFile().getUploadFileName();
-//
-//        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
-//
-//        log.info("uploadFileName={}", uploadFileName);
-//
-//        String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
-//        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
-//
-//        return ResponseEntity.ok()
-//                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
-//                .body(resource);
-//    }
+    @GetMapping("/attach/{itemId}")
+    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) throws MalformedURLException {
+        Item item = itemService.findOne(itemId);
+        String storeFileName = item.getAttachFile().getStoreFileName();
+        String uploadFileName = item.getAttachFile().getUploadFileName();
+
+        UrlResource resource = new UrlResource("file:" + fileStore.getFullPath(storeFileName));
+
+        log.info("uploadFileName={}", uploadFileName);
+
+        String encodedUploadFileName = UriUtils.encode(uploadFileName, StandardCharsets.UTF_8);
+        String contentDisposition = "attachment; filename=\"" + encodedUploadFileName + "\"";
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(resource);
+    }
 
 
     //상품목록
