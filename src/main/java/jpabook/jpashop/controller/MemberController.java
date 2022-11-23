@@ -1,5 +1,6 @@
 package jpabook.jpashop.controller;
 
+import jpabook.jpashop.controller.form.MemberForm;
 import jpabook.jpashop.domain.embedded.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
@@ -29,16 +30,10 @@ public class MemberController {
 
     @GetMapping("/members/{memberId}/myPage")
     public String MyPageForm(@PathVariable("memberId") Long memberId,Model model){
+
         Member findMember = memberService.findOne(memberId);
 
-        MemberForm form = new MemberForm();
-        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
-        form.setName(findMember.getName());
-        form.setLoginId(findMember.getLoginId());
-        form.setPassword(findMember.getPassword());
-        form.setAddress(address);
-
-        model.addAttribute("form", form);
+        model.addAttribute("findMember",findMember);
         return "members/myPageForm";
     }
 

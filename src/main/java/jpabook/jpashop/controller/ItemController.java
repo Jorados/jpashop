@@ -15,10 +15,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +42,11 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String create(itemForm form, RedirectAttributes redirectAttributes,Model model) throws IOException {
+    public String create(@Valid itemForm form, RedirectAttributes redirectAttributes, Model model, BindingResult bindingResult) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            return "items/createItemForm";
+        }
 
         UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
         List<UploadFile2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());

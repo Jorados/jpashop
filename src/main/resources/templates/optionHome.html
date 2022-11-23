@@ -1,39 +1,54 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header">
+<link href="/RESOURCES/static/css/home.css" th:href="@{/css/home.css}" rel="stylesheet" type="text/css"/>
     <title>Title</title>
 </head>
 <body>
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div class="jumbotron">
-        <h1 class="py-5">성진 서점</h1>
+        <h1 class="py-3">성진 서점</h1>
+    </div>
+
         <div class="row">
             <div class="col">
-                <h3 class="py-3">조회</h3>
-                <p>
-                    <a class="btn btn-lg btn-primary" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
-                </p>
-                <p>
-                    <a class="btn btn-lg btn-primary" href="/items">상품 목록</a>
-                </p>
-                <p>
-                    <a class="btn btn-lg btn-primary" href="/members">회원 목록</a>
-                </p>
-                    <a class="btn btn-lg btn-primary" href="/orders">주문 내역</a>
-                </p>
+                <div class="jumbotron">
+                    <h3 class="py-3">회원</h3>
+                    <p>
+                        <a class="btn btn-lg btn-primary" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="/members">회원 목록</a>
+                    </p>
+                </div>
             </div>
+
             <div class="col">
-                <h3 class="py-3">등록</h3>
-                <p>
-                    <a class="btn btn-lg btn-primary" href="/items/new">상품 등록</a>
-                </p>
-                <p>
-                    <a class="btn btn-lg btn-primary" th:href="@{/order (memberId=${member.id})}">상품 주문</a>
-                </p>
+                <div class="jumbotron">
+                    <h3 class="py-3">상품</h3>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="/items">상품 목록</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="/items/new">상품 등록</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="jumbotron">
+                    <h3 class="py-3">주문</h3>
+                    <p>
+                        <a class="btn btn-lg btn-primary" th:href="@{/order (memberId=${member.id})}">상품 주문</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="/orders">주문 내역</a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    <div th:replace="fragments/footer :: footer" />
 </div>
 </body>
 </html>
