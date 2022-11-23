@@ -3,6 +3,7 @@
 <head th:replace="fragments/header :: header">
     <title>성진 서점</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/RESOURCES/static/css/home.css" th:href="@{/css/home.css}" rel="stylesheet" type="text/css"/>
     <head th:replace="fragments/header :: header">
 </head>
 
@@ -14,38 +15,45 @@
 
     <div>
 
-
         <div class="jumbotron">
+            <img class="img" src="https://user-images.githubusercontent.com/100845256/203451907-43dbd5b7-e6ee-43e3-9867-b6c458e91bb7.png" height="200" width="300" align="right">
             <h1>성진 서점</h1>
             <h5 class="py-3" th:text="${member.name} + ' 님 안녕하세요'"></h5>
 
-            <img class="note" src="https://user-images.githubusercontent.com/100845256/203355290-93fc8212-b417-441c-8a67-a91000592be5.png" height="250" width="250" align="right">
-
             <form th:action="@{/logout}" method="post">
-                <button class="btn btn-dark btn-lg " type="submit">
+                <button class="py-3 btn btn-dark btn-lg " type="submit">
                     로그아웃
                 </button>
             </form>
+
         </div>
 
         <div class="jumbotron">
-            <h2 class="py-3">기능 목록</h2>
-        <p>
-            <a class="btn btn-lg btn-info" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
-            <a class="btn btn-lg btn-info" href="/members">회원 목록</a>
-        </p>
 
-        <p>
-            <a class="btn btn-lg btn-info" href="/items/new">상품 등록</a>
-            <a class="btn btn-lg btn-info" href="/items">상품 목록</a>
-        </p>
-        <p>
-<!--            <a class="btn btn-lg btn-info" href="/order">상품 주문</a>-->
-            <a class="btn btn-lg btn-info" th:href="@{/order (memberId=${member.id})}">상품 주문</a>
-            <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
-        </p>
+            <form th:action="@{/loginHome}" method="post">
+                <button class="py-3 w-100 btn btn-dark btn-lg " type="submit">
+                    기능 홈페이지
+                </button>
+            </form>
         </div>
-    </div>
+<!--        <div class="jumbotron">-->
+<!--            <h2 class="py-3">기능 목록</h2>-->
+<!--        <p>-->
+<!--            <a class="btn btn-lg btn-info" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>-->
+<!--            <a class="btn btn-lg btn-info" href="/members">회원 목록</a>-->
+<!--        </p>-->
+
+<!--        <p>-->
+<!--            <a class="btn btn-lg btn-info" href="/items/new">상품 등록</a>-->
+<!--            <a class="btn btn-lg btn-info" href="/items">상품 목록</a>-->
+<!--        </p>-->
+<!--        <p>-->
+<!--&lt;!&ndash;            <a class="btn btn-lg btn-info" href="/order">상품 주문</a>&ndash;&gt;-->
+<!--            <a class="btn btn-lg btn-info" th:href="@{/order (memberId=${member.id})}">상품 주문</a>-->
+<!--            <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>-->
+<!--        </p>-->
+<!--        </div>-->
+<!--    </div>-->
 
     <div th:replace="fragments/footer :: footer" />
 
