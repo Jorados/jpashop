@@ -40,7 +40,7 @@ public class ItemController {
     }
 
     @PostMapping("/items/new")
-    public String create(itemForm form, RedirectAttributes redirectAttributes) throws IOException {
+    public String create(itemForm form, RedirectAttributes redirectAttributes,Model model) throws IOException {
 
         UploadFile attachFile = fileStore.storeFile(form.getAttachFile());
         List<UploadFile2> storeImageFiles = fileStore.storeFiles2(form.getImageFiles());
@@ -59,6 +59,7 @@ public class ItemController {
         //bookItem.setImageFiles(imageFiles);
 
         itemService.saveItem(bookItem);
+        model.addAttribute("imageFiles",imageFiles);
         redirectAttributes.addAttribute("itemId", bookItem.getId());
         log.info("bookItem.getItemText()={}",bookItem.getItemText());
         return "redirect:/items/{itemId}";

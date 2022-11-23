@@ -4,23 +4,36 @@
     <title>Title</title>
 </head>
 <body>
-<div class="jumbotron">
-    <h2 class="py-3">기능 목록</h2>
-    <p>
-        <a class="btn btn-lg btn-info" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
-        <a class="btn btn-lg btn-info" href="/members">회원 목록</a>
-    </p>
-
-    <p>
-        <a class="btn btn-lg btn-info" href="/items/new">상품 등록</a>
-        <a class="btn btn-lg btn-info" href="/items">상품 목록</a>
-    </p>
-    <p>
-        <!--            <a class="btn btn-lg btn-info" href="/order">상품 주문</a>-->
-        <a class="btn btn-lg btn-info" th:href="@{/order (memberId=${member.id})}">상품 주문</a>
-        <a class="btn btn-lg btn-info" href="/orders">주문 내역</a>
-    </p>
-</div>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div class="jumbotron">
+        <h1 class="py-5">성진 서점</h1>
+        <div class="row">
+            <div class="col">
+                <h3 class="py-3">조회</h3>
+                <p>
+                    <a class="btn btn-lg btn-primary" th:href="@{/members/{memberId}/myPage (memberId=${member.id})}">개인 정보</a>
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="/items">상품 목록</a>
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="/members">회원 목록</a>
+                </p>
+                    <a class="btn btn-lg btn-primary" href="/orders">주문 내역</a>
+                </p>
+            </div>
+            <div class="col">
+                <h3 class="py-3">등록</h3>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="/items/new">상품 등록</a>
+                </p>
+                <p>
+                    <a class="btn btn-lg btn-primary" th:href="@{/order (memberId=${member.id})}">상품 주문</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

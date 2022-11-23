@@ -4,6 +4,8 @@ import jpabook.jpashop.domain.embedded.Address;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.validation.constraints.NotEmpty;
 
 @Getter @Setter
@@ -22,4 +24,6 @@ public class MemberForm {
     private String city;
     private String street;
     private String zipcode;
+
+
 }

@@ -32,10 +32,11 @@ public class MemberController {
         Member findMember = memberService.findOne(memberId);
 
         MemberForm form = new MemberForm();
+        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
         form.setName(findMember.getName());
         form.setLoginId(findMember.getLoginId());
         form.setPassword(findMember.getPassword());
-        form.setAddress(findMember.getAddress());
+        form.setAddress(address);
 
         model.addAttribute("form", form);
         return "members/myPageForm";
