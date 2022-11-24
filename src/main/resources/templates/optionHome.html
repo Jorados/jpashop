@@ -28,14 +28,15 @@
                 <div class="jumbotron">
                     <h3 class="py-3">상품</h3>
                     <p>
-                        <a class="btn btn-lg btn-primary" href="/items">상품 목록</a>
+                        <a class="btn btn-lg btn-primary" href="/items/new">상품 등록</a>
                     </p>
                     <p>
-                        <a class="btn btn-lg btn-primary" href="/items/new">상품 등록</a>
+                        <a class="btn btn-lg btn-primary" href="/items">상품 목록</a>
                     </p>
                 </div>
             </div>
-
+        </div>
+        <div class="row">
             <div class="col">
                 <div class="jumbotron">
                     <h3 class="py-3">주문</h3>
@@ -47,7 +48,22 @@
                     </p>
                 </div>
             </div>
+
+            <div class="col">
+                <div class="jumbotron">
+                    <h3 class="py-3">게시판</h3>
+                    <p>
+                        <a class="btn btn-lg btn-primary" th:href="@{/boards/new (memberId=${member.id})}">글 쓰기</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-lg btn-primary" href="/boards">글 목록</a>
+                    </p>
+                </div>
+            </div>
+
         </div>
+
+
     <div th:replace="fragments/footer :: footer" />
 </div>
 </body>

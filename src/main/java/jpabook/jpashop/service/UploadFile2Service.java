@@ -5,11 +5,13 @@ import jpabook.jpashop.file.FileStore;
 import jpabook.jpashop.repository.UploadFile2Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UploadFile2Service {
 

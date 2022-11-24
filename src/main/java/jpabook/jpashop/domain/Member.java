@@ -26,6 +26,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Board> boards = new ArrayList<>();
+
     private String loginId;
     private String password;
 }

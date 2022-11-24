@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<script>
+    var num = 1;
+</script>
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div class="py-5 text-center">
+        <h2>글 목록</h2>
+    </div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>작성 일</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="board : ${findBoards}">
+                <td>
+                    <script>
+                        document.write(num++);
+                    </script>
+                </td>
+                <td th:text="${board.name}"></td>
+                <td th:text="${board.content}"></td>
+                <td th:text="${board.writeDate}"></td>
+                <td>
+                    <a href="#" th:href="@{/boards/{id}/edit (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:href="@{/boards/{id}/readBoard (id=${board.id})}" class="btn btn-primary" role="button">조회</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"/>
+
+</div> <!-- /container -->
+
+</body>
+</html>
