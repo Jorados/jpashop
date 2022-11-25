@@ -1,6 +1,7 @@
 package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Board;
+import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class BoardService {
     public List<Board> findByMemberId(Long memberId){
         List<Board> findBoard = boardRepository.findByMemberId(memberId);
         return findBoard;
+    }
+
+    @Transactional
+    public void updateBoard(Long boardId, String name, String content) {
+        Board board = boardRepository.findOne(boardId);
+        board.setName(name);
+        board.setContent(content);
     }
 
 }

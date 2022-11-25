@@ -35,8 +35,8 @@
                 <td th:text="${board.content}"></td>
                 <td th:text="${board.writeDate}"></td>
                 <td>
-                    <a href="#" th:href="@{/boards/{id}/edit (id=${board.id})}" class="btn btn-primary" role="button">수정</a>
-                    <a href="#" th:href="@{/boards/{id}/readBoard (id=${board.id})}" class="btn btn-primary" role="button">조회</a>
+                    <a href="#" th:href="@{/boards/{boardId}/edit (boardId=${board.id})}" class="btn btn-primary" role="button">수정</a>
+                    <a href="#" th:href="@{/boards/{boardId}/readBoard (boardId=${board.id})}" class="btn btn-primary" role="button">조회</a>
                 </td>
             </tr>
             </tbody>
