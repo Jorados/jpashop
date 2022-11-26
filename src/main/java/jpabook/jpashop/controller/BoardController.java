@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -47,10 +48,11 @@ public class BoardController {
             return "boards/createBoardForm";
         }
 
+        LocalDateTime now = LocalDateTime.now();
         Board board = new Board();
         board.setName(form.getName());
         board.setContent(form.getContent());
-        board.setWriteDate(form.getWriteDate());
+        board.setWriteDate(LocalDateTime.now());
 
         boardService.saveBoard(board);
         return "redirect:/boards";
@@ -77,5 +79,18 @@ public class BoardController {
         boardService.updateBoard(boardId,form.getName(),form.getContent());
         return "redirect:/boards";
     }
+
+    @GetMapping("boards/{boardId}/read")
+    public String readBoard(@PathVariable("boardId") Long boardId,Model model){
+        Board findBoard = boardService.findOne(boardId);
+
+        BoardForm form = new BoardForm();
+        form.setName(findBoard.getName());
+        form.setContent(findBoard.getContent());
+
+        model.addAttribute("form",form);
+        return "boards/readBoardForm";
+    }
+
 
 }
