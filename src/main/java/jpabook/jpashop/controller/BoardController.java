@@ -68,7 +68,7 @@ public class BoardController {
     }
 
     @PostMapping("boards/{boardId}/edit")
-    public String updateBoard(@PathVariable("boardId") Long boardId, BindingResult bindingResult ,BoardForm form){
+    public String updateBoard(@PathVariable("boardId") Long boardId,BoardForm form, BindingResult bindingResult ){
 
         if(bindingResult.hasErrors()){
             log.info("binding error 발생");

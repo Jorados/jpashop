@@ -33,7 +33,7 @@
                 </td>
                 <td th:text="${board.name}"></td>
                 <td th:text="${board.content}"></td>
-                <td th:text="${board.writeDate}"></td>
+<!--                <td th:text="${board.writeDate}"></td>-->
                 <td>
                     <a href="#" th:href="@{/boards/{boardId}/edit (boardId=${board.id})}" class="btn btn-primary" role="button">수정</a>
                     <a href="#" th:href="@{/boards/{boardId}/readBoard (boardId=${board.id})}" class="btn btn-primary" role="button">조회</a>
