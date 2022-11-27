@@ -18,8 +18,8 @@
             <thead>
             <tr>
                 <th>#</th>
+                <th>작성자</th>
                 <th>제목</th>
-                <th>내용</th>
                 <th>작성 일</th>
                 <th></th>
             </tr>
@@ -31,8 +31,8 @@
                         document.write(num++);
                     </script>
                 </td>
+                <td th:text="${board.member.name}"></td>
                 <td th:text="${board.name}"></td>
-                <td th:text="${board.content}"></td>
                 <td th:text="${board.writeDate}"></td>
                 <td>
                     <a href="#" th:href="@{/boards/{boardId}/edit (boardId=${board.id})}" class="btn btn-primary" role="button">수정</a>

@@ -31,6 +31,7 @@ public class BoardController {
     @GetMapping("/boards")
     public String BoardList(Model model){
         List<Board> findBoards = boardService.findAll();
+        boardService.findBoardByName();
         model.addAttribute("findBoards",findBoards);
         return "boards/boardList";
     }
