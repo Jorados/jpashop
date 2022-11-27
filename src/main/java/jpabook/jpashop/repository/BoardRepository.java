@@ -3,10 +3,13 @@ package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Member;
+import jpabook.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -41,12 +44,8 @@ public class BoardRepository {
     }
 
     //member name 글 조회
-    public List<Board> findByName(String name){
-        return em.createQuery("select b from Board b where b.member.name = :name",Board.class)
-                .setParameter("name",name)
+    public List<Board> findBoardByMember() {
+        return em.createQuery("select b from Board b join b.member m", Board.class)
                 .getResultList();
     }
-
-
-
 }

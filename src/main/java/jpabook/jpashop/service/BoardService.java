@@ -3,6 +3,7 @@ package jpabook.jpashop.service;
 import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.repository.BoardRepository;
+import jpabook.jpashop.repository.BoardSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,8 +37,8 @@ public class BoardService {
         return findBoard;
     }
 
-    public List<Board> findBoardByName(String memberName){
-        List<Board> findBoard = boardRepository.findByName(memberName);
+    public List<Board> findBoardByMember(){
+        List<Board> findBoard = boardRepository.findBoardByMember();
         return findBoard;
     }
 

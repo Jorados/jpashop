@@ -5,6 +5,9 @@ import jpabook.jpashop.controller.form.BoardForm;
 import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.repository.BoardSearch;
+import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.BoardService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -30,8 +34,9 @@ public class BoardController {
 
     @GetMapping("/boards")
     public String BoardList(Model model){
-        List<Board> findBoards = boardService.findAll();
-        boardService.findBoardByName();
+//        List<Board> findBoards = boardService.findAll();
+
+        List<Board> findBoards = boardService.findBoardByMember();
         model.addAttribute("findBoards",findBoards);
         return "boards/boardList";
     }
