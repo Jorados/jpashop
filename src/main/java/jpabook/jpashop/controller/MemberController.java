@@ -5,6 +5,7 @@ import jpabook.jpashop.domain.embedded.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -67,6 +69,22 @@ public class MemberController {
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
+    }
+
+    @GetMapping("/members/{memberId}/delete")
+    public String deleteForm(@PathVariable ("memberId") Long memberId, Model model){
+        Member findMember = memberService.findOne(memberId);
+        model.addAttribute("findMember",findMember);
+        return "members/deletePage";
+    }
+    @PostMapping("/members/{memberId}/delete")
+    public String delete(@PathVariable("memberId") Long memberId,BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            log.info("회원 삭제 에러 입니다.");
+        }
+
+        memberService.delete(memberId);
+        return "redirect:/";
     }
 
 }
