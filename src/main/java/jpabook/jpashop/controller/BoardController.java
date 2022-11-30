@@ -5,10 +5,12 @@ import jpabook.jpashop.controller.form.BoardForm;
 import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.repository.BoardSearch;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.BoardService;
+import jpabook.jpashop.service.MemberService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +33,17 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final MemberService memberService;
 
     @GetMapping("/boards")
     public String BoardList(Model model){
-//        List<Board> findBoards = boardService.findAll();
+        List<Board> findBoards = boardService.findAll();
+        List<Member> findMembers = memberService.findMembers();
+        List<Board> findBoards2 = boardService.findBoardByMember();
 
-        List<Board> findBoards = boardService.findBoardByMember();
+        model.addAttribute("findMembers",findMembers);
         model.addAttribute("findBoards",findBoards);
+        model.addAttribute("findBoards2",findBoards2);
         return "boards/boardList";
     }
 
