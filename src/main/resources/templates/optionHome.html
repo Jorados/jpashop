@@ -56,7 +56,7 @@
                         <a class="btn btn-lg btn-primary" th:href="@{/boards/new (memberId=${member.id})}">글 쓰기</a>
                     </p>
                     <p>
-                        <a class="btn btn-lg btn-primary" href="/boards">글 목록</a>
+                        <a class="btn btn-lg btn-primary" th:href="@{/boards (memberId=${member.id})}" href="/boards">글 목록</a>
                     </p>
                 </div>
             </div>

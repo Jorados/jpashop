@@ -37,8 +37,8 @@
         <div class="comment-box py-5">
             <div class="comment-count">댓글 <span id="count">0</span></div>
             <div class="comment-name">
-	                        <span class="anonym">작성자 :
-	                    	    <input type="text" class="form-control" id="com_writer" placeholder="이름" name ="com_writer" readonly  style="width: 100px; border:none;">
+	                        <span>작성자
+	                    	    <input type="text" th:value="${findMember.name}" class="form-control" id="com_writer" placeholder="이름" name ="com_writer" readonly  style="width: 105px; border:none;">
 	                        </span>
             </div>
             <div class="py-2 comment-box">

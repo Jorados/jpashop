@@ -13,6 +13,16 @@
         <h2>글 목록</h2>
     </div>
 
+<!--    <form role="form" method="post">-->
+<!--        <div class="form-group">-->
+<!--            <select name="memberId" id="member" class="form-control">-->
+<!--                <option th:each="member : ${findMember}"-->
+<!--                        th:value="${member.id}"-->
+<!--                        th:text="${member.name}" />-->
+<!--            </select>-->
+<!--        </div>-->
+
+
     <div>
         <table class="table table-striped">
             <thead>
@@ -36,12 +46,13 @@
                 <td th:text="${board.writeDate}"></td>
                 <td>
                     <a href="#" th:href="@{/boards/{boardId}/edit (boardId=${board.id})}" class="btn btn-primary" role="button">수정</a>
-                    <a href="#" th:href="@{/boards/{boardId}/read (boardId=${board.id})}" class="btn btn-primary" role="button">조회</a>
+                    <a href="#" th:href="@{/boards/{boardId}/read (boardId=${board.id}, memberId = ${findMember.id})}" class="btn btn-primary" role="button">조회</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+    </form>
 
     <div th:replace="fragments/footer :: footer"/>
 
