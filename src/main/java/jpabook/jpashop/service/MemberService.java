@@ -26,6 +26,12 @@ public class MemberService {
         return member.getId();
     }
 
+    //삭제
+    @Transactional
+    public void delete(Long memberId){
+        memberRepository.delete(memberId);
+    }
+
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
         if (!findMembers.isEmpty()) {

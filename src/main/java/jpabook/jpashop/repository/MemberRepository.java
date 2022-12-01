@@ -38,4 +38,9 @@ public class MemberRepository {
                 .filter(m -> m.getLoginId().equals(loginId))
                 .findFirst();
     }
+
+    public void delete(Long memberId){
+        Member findMember = em.find(Member.class, memberId);
+        em.remove(findMember);
+    }
 }

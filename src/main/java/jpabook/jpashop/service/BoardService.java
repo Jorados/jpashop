@@ -1,9 +1,10 @@
 package jpabook.jpashop.service;
 
-import jpabook.jpashop.domain.Board;
-import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.*;
+import jpabook.jpashop.domain.enumFile.DeliveryStatus;
 import jpabook.jpashop.repository.BoardRepository;
 import jpabook.jpashop.repository.BoardSearch;
+import jpabook.jpashop.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public void saveBoard(Board board){
@@ -53,5 +55,6 @@ public class BoardService {
         board.setName(name);
         board.setContent(content);
     }
+
 
 }

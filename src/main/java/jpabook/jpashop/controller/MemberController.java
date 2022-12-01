@@ -5,19 +5,20 @@ import jpabook.jpashop.domain.embedded.Address;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
@@ -67,6 +68,23 @@ public class MemberController {
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
+    }
+
+    @GetMapping("/members/{memberId}/delete")
+    public String deleteForm(@PathVariable ("memberId") Long memberId, Model model){
+        Member findMember = memberService.findOne(memberId);
+        model.addAttribute("findMember",findMember);
+        return "members/deletePage";
+    }
+    @PostMapping("/members/{memberId}/delete")
+    public String delete(@PathVariable Long memberId, HttpServletRequest request){
+        //initDB 정보는 삭제x
+        memberService.delete(memberId);
+
+        //세션 삭제
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/";
     }
 
 }

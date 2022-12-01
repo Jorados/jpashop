@@ -1,5 +1,6 @@
 package jpabook.jpashop.domain;
 
+import jpabook.jpashop.domain.enumFile.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,4 +28,12 @@ public class Board {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getBoards().add(this);
+    }
+
 }
+
+
