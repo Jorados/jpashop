@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+</head>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+
+        window.onload = function() {
+            var message = [[${exMessage}]];
+
+            alert(message);
+
+            location.href = '/members?' + [[${queryParam}]];
+        }
+
+    </script>
+</th:block>
+<body>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package jpabook.jpashop.controller;
 
+import jpabook.jpashop.NoAuthorizationEx;
 import jpabook.jpashop.controller.form.MemberForm;
 import jpabook.jpashop.domain.embedded.Address;
 import jpabook.jpashop.domain.Member;
@@ -22,6 +23,16 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+
+    @ExceptionHandler(NoAuthorizationEx.class)  //에러 처리
+    public String HandlerException(Exception ex, HttpServletRequest request , Model model){
+
+        model.addAttribute("exMessage",ex.getMessage());
+        model.addAttribute("queryParam",request.getQueryString());
+
+        return "error/NoAuthorizationEx-redirect";
+    }
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
@@ -77,7 +88,16 @@ public class MemberController {
         return "members/deletePage";
     }
     @PostMapping("/members/{memberId}/delete")
-    public String delete(@PathVariable Long memberId, HttpServletRequest request){
+    public String delete(@PathVariable Long memberId, HttpServletRequest request, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        log.info("memberId" + memberId);
+        log.info("삭제하려는 멤버 아이디" + loginMember.getId());
+
+        Member findMember = memberService.findOne(memberId);
+        if(!loginMember.getId().equals(findMember.getId()) ){
+            throw new NoAuthorizationEx("삭제 권한이 없음 ");
+        }
+
         //initDB 정보는 삭제x
         memberService.delete(memberId);
 

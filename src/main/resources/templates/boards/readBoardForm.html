@@ -32,6 +32,22 @@
             <textarea cols="50" rows="10" th:field="*{content}" class="form-control" readonly>상품 설명</textarea>
         </div>
 
+
+        <!--댓글-->
+        <div class="comment-box py-5">
+            <div class="comment-count">댓글 <span id="count">0</span></div>
+            <div class="comment-name">
+	                        <span class="anonym">작성자 :
+	                    	    <input type="text" class="form-control" id="com_writer" placeholder="이름" name ="com_writer" readonly  style="width: 100px; border:none;">
+	                        </span>
+            </div>
+            <div class="py-2 comment-box">
+                <textarea class="form-control" id="com_content" cols="80" rows="2" name="com_content" ></textarea>
+            </div>
+            <div class="regBtn">
+                <button class="btn btn-primary" id="Comment_regist">댓글등록</button>
+            </div>
+        </div>
         <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/boards}'|" >
             목록으로
         </button>

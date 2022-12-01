@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 
 /**
  * 종 주문 2개
@@ -54,10 +55,13 @@ public class InitDb {
             Delivery delivery = createDelivery(member);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
+
+            Board board = createBoard(member,"제목1", "첫 번째 게시글 내용");
+            em.persist(board);
         }
 
         public void dbInit2() {
-            Member member = createMember("userB", "진주", "2", "2222","test2","1234");
+            Member member = createMember("조성진", "진주", "2", "2222","test2","1234");
             em.persist(member);
 
             Item book1 = createBook("SPRING1 BOOK", 20000, 200);
@@ -72,6 +76,9 @@ public class InitDb {
             Delivery delivery = createDelivery(member);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
+
+            Board board = createBoard(member,"제목2", "두 번째 게시글 내용");
+            em.persist(board);
         }
 
         private Member createMember(String name, String city, String street, String zipcode,String loginId, String password) {
@@ -95,6 +102,15 @@ public class InitDb {
             Delivery delivery = new Delivery();
             delivery.setAddress(member.getAddress());
             return delivery;
+        }
+
+        private Board createBoard(Member member,String name, String content){
+            Board board = new Board();
+            board.setMember(member);
+            board.setName(name);
+            board.setContent(content);
+            board.setWriteDate(LocalDateTime.now());
+            return board;
         }
     }
 }
