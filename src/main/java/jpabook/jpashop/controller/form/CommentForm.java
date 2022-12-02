@@ -1,5 +1,7 @@
 package jpabook.jpashop.controller.form;
 
+import jpabook.jpashop.domain.Board;
+import jpabook.jpashop.domain.Member;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,5 +15,6 @@ public class CommentForm {
     private String writer; //작성자
     private String content; //내용
     private LocalDateTime writeDate; //작성일
+
 
 }
