@@ -17,12 +17,16 @@ public class Comment {
     @Column(name="comment_id")
     private Long id;
 
-    private String name; //제목
-    private String writer; //작성자
     private String content; //내용
+
     private LocalDateTime writeDate; //작성자
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @ManyToOne
+    @JoinColumn(name="userId")
+    private Member member;
+
 }

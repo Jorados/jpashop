@@ -33,25 +33,47 @@
         </div>
 
 
-        <!--댓글-->
-        <div class="comment-box py-5">
-            <div class="comment-count">댓글 <span id="count">0</span></div>
-            <div class="comment-name">
-	                        <span>작성자
-	                    	    <input type="text" th:value="${findMember.name}" class="form-control" id="com_writer" placeholder="이름" name ="com_writer" readonly  style="width: 105px; border:none;">
-	                        </span>
+<!--        &lt;!&ndash;댓글&ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--        <div class="comment-box py-5">-->
+<!--            <div class="comment-count">댓글 <span id="count">0</span></div>-->
+<!--            <div class="comment-name">-->
+<!--                <span>작성자-->
+<!--                    <input type="text" th:value="${findMember.name}" class="form-control" id="com_writer" placeholder="이름" name ="com_writer" readonly  style="width: 105px; border:none;">-->
+<!--                </span>-->
+<!--            </div>-->
+<!--            <div class="py-2 comment-box">-->
+<!--                <textarea class="form-control" id="com_content" cols="80" rows="2" name="com_content" ></textarea>-->
+<!--            </div>-->
+<!--            <div class="regBtn">-->
+<!--                <button class="btn btn-primary" id="Comment_regist">댓글등록</button>-->
+<!--            </div>-->
+<!--        </div>-->
+
+            <div class="comment-name py-1">
+                    <span>댓글 작성자
+                        <input type="text" th:value="${findMember.name}" class="form-control" placeholder="이름" name ="com_writer" readonly  style="width: 105px; border:none;">
+                    </span>
             </div>
-            <div class="py-2 comment-box">
-                <textarea class="form-control" id="com_content" cols="80" rows="2" name="com_content" ></textarea>
+
+            <div class="input-group mb-3">
+                <form id="comment" action="/comment_write" method="post">
+                    <input type="text" id="content" name="content" class="form-control" placeholder="댓글을 입력해주세요.." aria-label="댓글을 입력해주세요.." aria-describedby="basic-addon2">
+                    <input type="hidden" id="boardId" name="boardId" th:value="${form.id}">
+                    <div class="input-group-append">
+                        <button th:href="@{/comment_write}" class="btn btn-outline-secondary" type="submit">등록</button>
+                    </div>
+                </form>
             </div>
-            <div class="regBtn">
-                <button class="btn btn-primary" id="Comment_regist">댓글등록</button>
-            </div>
-        </div>
+
+
         <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/boards}'|" >
             목록으로
         </button>
+
+
     </form>
+
     <br/>
     <div th:replace="fragments/footer :: footer" />
 

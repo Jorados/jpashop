@@ -100,6 +100,7 @@ public class BoardController {
         Member findMember = memberService.findOne(memberId);
 
         BoardForm form = new BoardForm();
+        form.setId(findBoard.getId());
         form.setName(findBoard.getName());
         form.setContent(findBoard.getContent());
 
