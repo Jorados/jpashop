@@ -113,18 +113,20 @@ public class BoardController {
     }
 
     @PostMapping("boards/{boardId}/read")
-    public String addComment(@PathVariable("boarId") Long boarId, @ModelAttribute Comment comment, Model model, @SessionAttribute(name = "loginMember")Member loginMember){
+    public String addComment(@PathVariable("boardId") Long boardId, CommentForm form, Model model, @SessionAttribute(name = "loginMember")Member loginMember){
 
-        Board findBoard = boardService.findOne(boarId);
+        Board findBoard = boardService.findOne(boardId);
         Member findMember = memberService.findOne(loginMember.getId());
 
-        comment.setWriteDate(LocalDateTime.now());
+        Comment comment = new Comment();
         comment.setName(findMember.getName());
+        comment.setContent(form.getContent());
+        comment.setWriteDate(LocalDateTime.now());
         comment.setMember(findMember);
         comment.setBoard(findBoard);
 
         commentRepository.save(comment);
-        List<Comment> comments = commentRepository.findCommentBoardId(boarId);
+        List<Comment> comments = commentRepository.findCommentBoardId(boardId);
         model.addAttribute("comments",comments);
         model.addAttribute(findBoard);
 
