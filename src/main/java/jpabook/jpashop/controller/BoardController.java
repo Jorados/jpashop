@@ -34,10 +34,8 @@ public class BoardController {
     private final MemberService memberService;
     private final CommentRepository commentRepository;
     @GetMapping("/boards")
-    public String BoardList(@RequestParam("memberId") Long memberId, Model model){
+    public String BoardList(Model model){
         List<Board> findBoards = boardService.findAll();
-        Member findMember = memberService.findOne(memberId);
-        model.addAttribute("findMember",findMember);
         model.addAttribute("findBoards",findBoards);
         return "boards/boardList";
     }
@@ -97,23 +95,17 @@ public class BoardController {
 
     @GetMapping("boards/{boardId}/read")
     public String readBoard(@PathVariable("boardId") Long boardId,
-                            @RequestParam("memberId") Long memberId,
                             Model model){
         Board findBoard = boardService.findOne(boardId);
-        Member findMember = memberService.findOne(memberId);
+        //Member findMember = memberService.findOne(memberId);
 
-        BoardForm form = new BoardForm();
-        form.setId(findBoard.getId());
-        form.setName(findBoard.getName());
-        form.setContent(findBoard.getContent());
-
-        model.addAttribute("findMember",findMember);
-        model.addAttribute("form",form);
+        //model.addAttribute("findMember",findMember);
+        model.addAttribute("findBoard",findBoard);
         return "boards/readBoardForm";
     }
 
     @PostMapping("boards/{boardId}/read")
-    public String addComment(@PathVariable("boardId") Long boardId, CommentForm form, Model model, @SessionAttribute(name = "loginMember")Member loginMember){
+    public String addComment(@PathVariable("boardId") Long boardId,@ModelAttribute CommentForm form, Model model, @SessionAttribute(name = "loginMember")Member loginMember){
 
         Board findBoard = boardService.findOne(boardId);
         Member findMember = memberService.findOne(loginMember.getId());
@@ -128,7 +120,7 @@ public class BoardController {
         commentRepository.save(comment);
         List<Comment> comments = commentRepository.findCommentBoardId(boardId);
         model.addAttribute("comments",comments);
-        model.addAttribute(findBoard);
+        model.addAttribute("findBoard",findBoard);
 
         return "/boards/readBoardForm";
     }
