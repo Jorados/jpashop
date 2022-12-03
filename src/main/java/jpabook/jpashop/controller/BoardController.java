@@ -2,15 +2,15 @@ package jpabook.jpashop.controller;
 
 
 import jpabook.jpashop.controller.form.BoardForm;
+import jpabook.jpashop.controller.form.CommentForm;
 import jpabook.jpashop.controller.form.itemForm;
-import jpabook.jpashop.domain.Board;
-import jpabook.jpashop.domain.Item;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.*;
 import jpabook.jpashop.repository.BoardSearch;
+import jpabook.jpashop.repository.CommentRepository;
 import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.BoardService;
+import jpabook.jpashop.service.CommentService;
 import jpabook.jpashop.service.MemberService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberRepository memberRepository;
     private final MemberService memberService;
+    private final CommentRepository commentRepository;
     @GetMapping("/boards")
     public String BoardList(@RequestParam("memberId") Long memberId, Model model){
         List<Board> findBoards = boardService.findAll();
@@ -40,6 +41,7 @@ public class BoardController {
         model.addAttribute("findBoards",findBoards);
         return "boards/boardList";
     }
+
 
     @GetMapping("/boards/new")
     public String createBoardForm(@RequestParam("memberId") Long memberId,Model model){
@@ -57,6 +59,7 @@ public class BoardController {
             log.info("bindingResult.hasErrors 글 작성 에러 발생");
             return "boards/createBoardForm";
         }
+
 
         LocalDateTime now = LocalDateTime.now();
         Board board = new Board();
@@ -100,12 +103,32 @@ public class BoardController {
         Member findMember = memberService.findOne(memberId);
 
         BoardForm form = new BoardForm();
+        form.setId(findBoard.getId());
         form.setName(findBoard.getName());
         form.setContent(findBoard.getContent());
 
         model.addAttribute("findMember",findMember);
         model.addAttribute("form",form);
         return "boards/readBoardForm";
+    }
+
+    @PostMapping("boards/{boardId}/read")
+    public String addComment(@PathVariable("boarId") Long boarId, @ModelAttribute Comment comment, Model model, @SessionAttribute(name = "loginMember")Member loginMember){
+
+        Board findBoard = boardService.findOne(boarId);
+        Member findMember = memberService.findOne(loginMember.getId());
+
+        comment.setWriteDate(LocalDateTime.now());
+        comment.setName(findMember.getName());
+        comment.setMember(findMember);
+        comment.setBoard(findBoard);
+
+        commentRepository.save(comment);
+        List<Comment> comments = commentRepository.findCommentBoardId(boarId);
+        model.addAttribute("comments",comments);
+        model.addAttribute(findBoard);
+
+        return "/boards/readBoardForm";
     }
 
 

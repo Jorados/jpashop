@@ -17,12 +17,27 @@ public class Comment {
     @Column(name="comment_id")
     private Long id;
 
-    private String name; //제목
-    private String writer; //작성자
+    private String name;
     private String content; //내용
-    private LocalDateTime writeDate; //작성자
+
+    private LocalDateTime writeDate;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    @ManyToOne
+    @JoinColumn(name="userId")
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getComments().add(this);
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+        board.getComments().add(this);
+    }
+
 }

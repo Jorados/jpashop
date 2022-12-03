@@ -4,32 +4,19 @@ package jpabook.jpashop.repository;
 import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Comment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-@RequiredArgsConstructor
-public class CommentRepository {
-    private final EntityManager em;
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    public void save(Comment comment){
-        em.persist(comment);
-    }
-
-    public Comment findOne(Long id) {
-        return em.find(Comment.class, id);
-    }
-
-    public void delete(Long id){
-        Comment findComment = em.find(Comment.class, id);
-        em.remove(findComment);
-    }
-
-    public List<Comment> findAll(){
-        return em.createQuery("select c from Comment c", Comment.class)
-                .getResultList();
-    }
+    //내가 작성한 board.id에 해당하는 댓글만 출력할 수 있는 쿼리
+    @Query("select c from Comment c where c.board.id = :id")
+    List<Comment> findCommentBoardId(@Param("id") Long id);
 
 }

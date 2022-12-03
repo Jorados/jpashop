@@ -30,6 +30,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Board> boards = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
     private String loginId;
     private String password;
 }
