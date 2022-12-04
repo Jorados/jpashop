@@ -56,7 +56,7 @@ public class InitDb {
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
 
-            Board board = createBoard(member,"제목1", "첫 번째 게시글 내용");
+            Board board = createBoard(member,"제목1", "첫 번째 게시글 내용",0L);
             em.persist(board);
         }
 
@@ -77,7 +77,7 @@ public class InitDb {
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
 
-            Board board = createBoard(member,"제목2", "두 번째 게시글 내용");
+            Board board = createBoard(member,"제목2", "두 번째 게시글 내용",0L);
             em.persist(board);
         }
 
@@ -104,12 +104,13 @@ public class InitDb {
             return delivery;
         }
 
-        private Board createBoard(Member member,String name, String content){
+        private Board createBoard(Member member,String name, String content,Long countVisit){
             Board board = new Board();
             board.setMember(member);
             board.setName(name);
             board.setContent(content);
             board.setWriteDate(LocalDateTime.now());
+            board.setCountVisit(countVisit);
             return board;
         }
     }

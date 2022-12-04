@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +26,9 @@ public class Board {
     private String name;
     private String content;
     private LocalDateTime writeDate;
-//    private int likeCount;
+    private int likeCount;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Long countVisit;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -35,11 +38,30 @@ public class Board {
     @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "board",cascade = CascadeType.ALL)
+    private List<Likes> likes = new ArrayList<>();
+
+
+
+    //연관관계 메서드
     public void setMember(Member member) {
         this.member = member;
         member.getBoards().add(this);
     }
 
+    //비즈니스 로직
+    public void addLikeCount(){
+        likeCount += 1;
+    }
+
+    public void minusLikeCount(){
+        likeCount -= 1;
+    }
+
+    public void updateVisit(Long countVisit){
+        this.countVisit = countVisit;
+    }
 }
 
 

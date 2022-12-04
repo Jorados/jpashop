@@ -48,4 +48,11 @@ public class BoardRepository {
         return em.createQuery("select b from Board b join b.member m", Board.class)
                 .getResultList();
     }
+
+    //내가 좋아요 누른 글 조회
+    public List<Board> findLikesBoard(Long memberId){
+        return em.createQuery("select l.board from Likes l where l.member.id = :memberId",Board.class)
+                .setParameter("memberId",memberId)
+                .getResultList();
+    }
 }

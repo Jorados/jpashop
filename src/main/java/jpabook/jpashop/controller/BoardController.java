@@ -35,6 +35,7 @@ public class BoardController {
     private final CommentRepository commentRepository;
     @GetMapping("/boards")
     public String BoardList(Model model){
+
         List<Board> findBoards = boardService.findAll();
         model.addAttribute("findBoards",findBoards);
         return "boards/boardList";
@@ -94,12 +95,19 @@ public class BoardController {
     }
 
     @GetMapping("boards/{boardId}/read")
-    public String readBoard(@PathVariable("boardId") Long boardId,
-                            Model model){
+    public String readBoard(@PathVariable("boardId") Long boardId, Model model){
         Board findBoard = boardService.findOne(boardId);
-        //Member findMember = memberService.findOne(memberId);
+        List<Comment> comments = commentRepository.findCommentBoardId(boardId);
 
-        //model.addAttribute("findMember",findMember);
+
+        //조회 누를 때 마다 조회수 증가
+        //게시글을 작성한 memberId를 가지고 와서 거기에다가 조회수 +1
+        Long countVisit = findBoard.getCountVisit() + 1L;
+        BoardForm boardForm = new BoardForm();
+        boardForm.setCountVisit(countVisit);
+        boardService.updateVisit(findBoard.getId(),boardForm);
+
+        model.addAttribute("comments",comments);
         model.addAttribute("findBoard",findBoard);
         return "boards/readBoardForm";
     }

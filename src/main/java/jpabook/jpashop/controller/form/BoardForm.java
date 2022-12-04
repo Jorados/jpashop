@@ -1,6 +1,7 @@
 package jpabook.jpashop.controller.form;
 
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,5 +16,6 @@ public class BoardForm {
     private String name;
     private String content;
     private LocalDateTime writeDate; //작성 시간
+    private Long countVisit;
 
 }
