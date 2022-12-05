@@ -59,11 +59,10 @@ public class BoardController {
             return "boards/createBoardForm";
         }
 
-
-        LocalDateTime now = LocalDateTime.now();
         Board board = new Board();
         board.setId(form.getId());
         board.setMember(member);
+        board.setCountVisit(0L);
         board.setName(form.getName());
         board.setContent(form.getContent());
         board.setWriteDate(LocalDateTime.now());

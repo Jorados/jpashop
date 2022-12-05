@@ -26,7 +26,7 @@ public class Comment {
     @JoinColumn(name = "board_id")
     private Board board;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="userId")
     private Member member;
 
