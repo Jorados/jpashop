@@ -27,7 +27,7 @@ public class LikesRepository {
     public void unlike(Long memberId, Long boardId, Board board){
         Likes findLikes = em.createQuery("select l from Likes l where l.member.id = :memberId and l.board.id = :boardId",Likes.class)
                 .setParameter("memberId",memberId)
-                .setParameter("boardId",board)
+                .setParameter("boardId",boardId)
                 .getSingleResult();
 
         board.getLikes().remove(findLikes);
