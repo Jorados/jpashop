@@ -11,15 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 
-/**
- * 종 주문 2개
- * * userA
- * 	 * JPA1 BOOK
- * 	 * JPA2 BOOK
- * * userB
- * 	 * SPRING1 BOOK
- * 	 * SPRING2 BOOK
- */
 @Component
 @RequiredArgsConstructor
 public class InitDb {

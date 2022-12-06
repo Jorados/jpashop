@@ -11,6 +11,7 @@ import jpabook.jpashop.repository.MemberRepository;
 import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.BoardService;
 import jpabook.jpashop.service.CommentService;
+import jpabook.jpashop.service.LikesService;
 import jpabook.jpashop.service.MemberService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -33,11 +36,14 @@ public class BoardController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final CommentRepository commentRepository;
+    private final LikesService likesService;
     @GetMapping("/boards")
-    public String BoardList(Model model){
-
+    public String BoardList(Model model,@SessionAttribute(name = "loginMember")Member loginMember){
         List<Board> findBoards = boardService.findAll();
+        Map<Long,Integer> myLikeBoardId = likesService.getLikeBoardId(loginMember.getId(),findBoards);
+
         model.addAttribute("findBoards",findBoards);
+        model.addAttribute("myLikeBoardId",myLikeBoardId);
         return "boards/boardList";
     }
 
@@ -59,11 +65,10 @@ public class BoardController {
             return "boards/createBoardForm";
         }
 
-
-        LocalDateTime now = LocalDateTime.now();
         Board board = new Board();
         board.setId(form.getId());
         board.setMember(member);
+        board.setCountVisit(0L);
         board.setName(form.getName());
         board.setContent(form.getContent());
         board.setWriteDate(LocalDateTime.now());
