@@ -42,9 +42,7 @@ public class MemberController {
 
     @GetMapping("/members/{memberId}/myPage")
     public String MyPageForm(@PathVariable("memberId") Long memberId,Model model){
-
         Member findMember = memberService.findOne(memberId);
-
         model.addAttribute("findMember",findMember);
         return "members/myPageForm";
     }

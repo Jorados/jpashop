@@ -61,22 +61,23 @@ public class ItemController {
         bookItem.setAttachFile(attachFile);
         bookItem.setImageFiles(storeImageFiles);
 
-        List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
-        //bookItem.setImageFiles(imageFiles);
 
+        List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
         itemService.saveItem(bookItem);
+
         model.addAttribute("imageFiles",imageFiles);
         redirectAttributes.addAttribute("itemId", bookItem.getId());
         log.info("bookItem.getItemText()={}",bookItem.getItemText());
-        return "redirect:/items/{itemId}";
+
+        return "redirect:/items";
     }
 
-    @GetMapping("/items/{itemId}")
-    public String items(@PathVariable Long itemId, Model model) {
-        Item item = itemService.findOne(itemId);
-        model.addAttribute("item", item);
-        return "items/item-view";
-    }
+//    @GetMapping("/items/{itemId}")
+//    public String items(@PathVariable Long itemId, Model model) {
+//        Item item = itemService.findOne(itemId);
+//        model.addAttribute("item", item);
+//        return "items/item-view";
+//    }
 
     //업로드 파일 ResponseBody 에 담기
     @ResponseBody
@@ -133,25 +134,14 @@ public class ItemController {
 
     @GetMapping("items/{itemId}/readItem")
     public String readItemForm(@PathVariable("itemId") Long itemId, Model model) {
-        Item item = (Item) itemService.findOne(itemId);
-
-        itemForm form = new itemForm();
-        form.setId(item.getId());
-        form.setName(item.getName());
-        form.setPrice(item.getPrice());
-        form.setStockQuantity(item.getStockQuantity());
-        form.setAuthor(item.getAuthor());
-        form.setIsbn(item.getIsbn());
-        form.setItemText(item.getItemText());
-        model.addAttribute("form", form);
+        Item findItem = itemService.findOne(itemId);
+        model.addAttribute("findItem", findItem);
         return "items/readItemForm";
     }
 
     @PostMapping("items/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") itemForm form) {
-
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
-
         return "redirect:/items";
     }
 }

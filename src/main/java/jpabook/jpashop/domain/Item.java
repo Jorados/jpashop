@@ -43,11 +43,7 @@ public class Item {
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    private List<UploadFile2> imageFiles;
-
-
-
-
+    private List<UploadFile2> imageFiles = new ArrayList<>();
 
     //==비즈니스 로직==//
     /**

@@ -10,7 +10,7 @@
         <h2>상품 조회</h2>
     </div>
 
-    <form th:object="${form}" method="post">
+    <form th:object="${findItem}" method="post">
         <!-- id -->
         <input type="hidden" th:field="*{id}" />
 
@@ -44,6 +44,10 @@
             <textarea cols="50" rows="10" input type="text" th:field="*{itemText}" class="form-control" placeholder="상품 설명을 입력하세요." readonly>
             </textarea>
         </div>
+
+
+        첨부파일: <a th:if="${findItem.attachFile}" th:href="|/attach/${findItem.id}|" th:text="${findItem.getAttachFile().getUploadFileName()}" /><br/>
+        <img th:each="imageFile : ${findItem.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
 
         <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/items}'|" readonly>
             목록으로
