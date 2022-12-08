@@ -45,9 +45,14 @@
             </textarea>
         </div>
 
+        <div class="py-3">
+            첨부파일: <a th:if="${findItem.attachFile}" th:href="|/attach/${findItem.id}|" th:text="${findItem.getAttachFile().getUploadFileName()}" /><br/>
+        </div>
 
-        첨부파일: <a th:if="${findItem.attachFile}" th:href="|/attach/${findItem.id}|" th:text="${findItem.getAttachFile().getUploadFileName()}" /><br/>
-        <img th:each="imageFile : ${findItem.imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+        <div class="py-3">
+            <img th:each="imageFile : ${imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="300" height="300"/>
+        </div>
+
 
         <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/items}'|" readonly>
             목록으로

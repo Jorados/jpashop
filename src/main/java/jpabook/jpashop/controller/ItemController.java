@@ -64,11 +64,7 @@ public class ItemController {
 
         List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
         itemService.saveItem(bookItem);
-
         model.addAttribute("imageFiles",imageFiles);
-        redirectAttributes.addAttribute("itemId", bookItem.getId());
-        log.info("bookItem.getItemText()={}",bookItem.getItemText());
-
         return "redirect:/items";
     }
 
@@ -135,7 +131,9 @@ public class ItemController {
     @GetMapping("items/{itemId}/readItem")
     public String readItemForm(@PathVariable("itemId") Long itemId, Model model) {
         Item findItem = itemService.findOne(itemId);
+        List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
         model.addAttribute("findItem", findItem);
+        model.addAttribute("imageFiles",imageFiles);
         return "items/readItemForm";
     }
 

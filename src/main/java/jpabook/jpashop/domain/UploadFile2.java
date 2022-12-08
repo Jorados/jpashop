@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
@@ -31,8 +34,12 @@ public class UploadFile2 {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
     }
-//
+
     public UploadFile2() {
     }
 
+    public void setItem(Item item) {
+        this.item = item;
+        item.getImageFiles().add(this);
+    }
 }
