@@ -3,26 +3,19 @@ package jpabook.jpashop.controller;
 
 import jpabook.jpashop.controller.form.BoardForm;
 import jpabook.jpashop.controller.form.CommentForm;
-import jpabook.jpashop.controller.form.itemForm;
 import jpabook.jpashop.domain.*;
-import jpabook.jpashop.repository.BoardSearch;
 import jpabook.jpashop.repository.CommentRepository;
 import jpabook.jpashop.repository.MemberRepository;
-import jpabook.jpashop.repository.OrderSearch;
 import jpabook.jpashop.service.BoardService;
-import jpabook.jpashop.service.CommentService;
 import jpabook.jpashop.service.LikesService;
 import jpabook.jpashop.service.MemberService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;

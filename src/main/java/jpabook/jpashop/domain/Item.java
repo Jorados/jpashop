@@ -38,6 +38,9 @@ public class Item {
     private String isbn;
     private String itemText;
 
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private Long countVisit;
+
     @Embedded
     private UploadFile attachFile;
 
@@ -63,5 +66,10 @@ public class Item {
         }
         this.stockQuantity = restStock;
     }
+
+    public void updateVisit(Long countVisit){
+        this.countVisit = countVisit;
+    }
+
 
 }

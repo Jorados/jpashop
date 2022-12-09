@@ -34,10 +34,10 @@ public class InitDb {
             Member member = createMember("뱅갈호랑이", "서울", "1", "1111","test1","1234");
             em.persist(member);
 
-            Item book1 = createBook("JPA1 BOOK", 10000, 100);
+            Item book1 = createBook("JPA1 BOOK", 10000, 100,0L);
             em.persist(book1);
 
-            Item book2 = createBook("JPA2 BOOK", 20000, 100);
+            Item book2 = createBook("JPA2 BOOK", 20000, 100,0L);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 10000, 1);
@@ -55,10 +55,10 @@ public class InitDb {
             Member member = createMember("조성진", "진주", "2", "2222","test2","1234");
             em.persist(member);
 
-            Item book1 = createBook("SPRING1 BOOK", 20000, 200);
+            Item book1 = createBook("SPRING1 BOOK", 20000, 200,0L);
             em.persist(book1);
 
-            Item book2 = createBook("SPRING2 BOOK", 40000, 300);
+            Item book2 = createBook("SPRING2 BOOK", 40000, 300,0L);
             em.persist(book2);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 20000, 3);
@@ -81,11 +81,12 @@ public class InitDb {
             return member;
         }
 
-        private Item createBook(String name, int price, int stockQuantity) {
+        private Item createBook(String name, int price, int stockQuantity,Long countVisit) {
             Item book1 = new Item();
             book1.setName(name);
             book1.setPrice(price);
             book1.setStockQuantity(stockQuantity);
+            book1.setCountVisit(0L);
             return book1;
         }
 

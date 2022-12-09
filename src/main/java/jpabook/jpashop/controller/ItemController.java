@@ -1,6 +1,7 @@
 package jpabook.jpashop.controller;
 
-import jpabook.jpashop.controller.form.itemForm;
+import jpabook.jpashop.controller.form.BoardForm;
+import jpabook.jpashop.controller.form.ItemForm;
 import jpabook.jpashop.domain.Item;
 import jpabook.jpashop.domain.embedded.UploadFile;
 import jpabook.jpashop.domain.UploadFile2;
@@ -37,12 +38,12 @@ public class ItemController {
 
     @GetMapping("/items/new")
     public String createForm(Model model) {
-        model.addAttribute("form", new itemForm());
+        model.addAttribute("form", new ItemForm());
         return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
-    public String create(@Valid itemForm form, RedirectAttributes redirectAttributes, Model model, BindingResult bindingResult) throws IOException {
+    public String create(@Valid ItemForm form, RedirectAttributes redirectAttributes, Model model, BindingResult bindingResult) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "items/createItemForm";
@@ -115,7 +116,7 @@ public class ItemController {
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
         Item item = (Item) itemService.findOne(itemId);
 
-        itemForm form = new itemForm();
+        ItemForm form = new ItemForm();
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());
@@ -132,13 +133,19 @@ public class ItemController {
     public String readItemForm(@PathVariable("itemId") Long itemId, Model model) {
         Item findItem = itemService.findOne(itemId);
         List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
+
+        Long countVisit = findItem.getCountVisit() + 1L;
+        ItemForm itemForm = new ItemForm();
+        itemForm.setCountVisit(countVisit);
+        itemService.updateVisit(findItem.getId(),itemForm);
+
         model.addAttribute("findItem", findItem);
         model.addAttribute("imageFiles",imageFiles);
         return "items/readItemForm";
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") itemForm form) {
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
     }

@@ -1,15 +1,13 @@
 package jpabook.jpashop.controller.form;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
-public class itemForm {
+public class ItemForm {
 
     private Long id;
 
@@ -25,4 +23,5 @@ public class itemForm {
     private String author;
     private String isbn;
     private String itemText;
+    private Long countVisit;
 }
