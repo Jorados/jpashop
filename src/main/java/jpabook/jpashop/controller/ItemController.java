@@ -61,11 +61,9 @@ public class ItemController {
         bookItem.setItemText(form.getItemText());
         bookItem.setAttachFile(attachFile);
         bookItem.setImageFiles(storeImageFiles);
-
-
-        List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
+        bookItem.setCountVisit(0L);
         itemService.saveItem(bookItem);
-        model.addAttribute("imageFiles",imageFiles);
+
         return "redirect:/items";
     }
 
