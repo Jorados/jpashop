@@ -1,8 +1,10 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
+<script>
+    var num = 1;
+</script>
 <body>
-
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
@@ -54,11 +56,44 @@
                이미지<img th:each="imageFile : ${imageFiles}" th:src="|/images/${imageFile.getStoreFileName()}|" width="700" height="700" class="py-5"/><br/><hr/>
             </div>
         </div>
+    </form>
 
         <button class="w-100 btn btn-primary btn-lg" type="button"  th:onclick="|location.href='@{/items}'|" readonly>
             목록으로
         </button>
+
+
+    <form method="post" action="readItem" class="py-5">
+        <div class="comment-form" style="text-align: center;">
+            <div class="comment-form2" style="width:300px;height: 200px;display: inline-block">
+                <label for="content">댓글 달기</label>
+                <textarea class="form-control " id="content" name="content" rows="3"></textarea>
+                <button type="submit" class="btn btn-primary w-100" onclick="window.location.reload()">작성</button>
+            </div>
+        </div>
     </form>
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>작성자</th>
+            <th>댓글 내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="comment : ${comments}">
+            <td>
+                <script>
+                        document.write(num++);
+                    </script>
+            </td>
+            <td th:text="${comment.member.name}"></td>
+            <td th:text="${comment.content}"></td>
+        </tr>
+        </tbody>
+    </table>
 
     <div th:replace="fragments/footer :: footer" />
 

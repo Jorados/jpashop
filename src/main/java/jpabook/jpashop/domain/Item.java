@@ -48,6 +48,10 @@ public class Item {
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     private List<UploadFile2> imageFiles = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+
     //==비즈니스 로직==//
     /**
      * stock 증가

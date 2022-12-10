@@ -27,6 +27,10 @@ public class Comment {
     private Board board;
 
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="userId")
     private Member member;
 

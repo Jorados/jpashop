@@ -1,12 +1,14 @@
 package jpabook.jpashop.controller;
 
 import jpabook.jpashop.controller.form.BoardForm;
+import jpabook.jpashop.controller.form.CommentForm;
 import jpabook.jpashop.controller.form.ItemForm;
-import jpabook.jpashop.domain.Item;
+import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.embedded.UploadFile;
-import jpabook.jpashop.domain.UploadFile2;
 import jpabook.jpashop.file.FileStore;
+import jpabook.jpashop.repository.CommentRepository;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.MemberService;
 import jpabook.jpashop.service.UploadFile2Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -35,7 +38,8 @@ public class ItemController {
     private final ItemService itemService;
     private final FileStore fileStore;
     private final UploadFile2Service uploadFile2Service;
-
+    private final CommentRepository commentRepository;
+    private final MemberService memberService;
     @GetMapping("/items/new")
     public String createForm(Model model) {
         model.addAttribute("form", new ItemForm());
@@ -131,6 +135,7 @@ public class ItemController {
     public String readItemForm(@PathVariable("itemId") Long itemId, Model model) {
         Item findItem = itemService.findOne(itemId);
         List<UploadFile2> imageFiles = uploadFile2Service.findImageFiles();
+        List<Comment> comments = commentRepository.findCommentBoardId(itemId);
 
         Long countVisit = findItem.getCountVisit() + 1L;
         ItemForm itemForm = new ItemForm();
@@ -139,9 +144,29 @@ public class ItemController {
 
         model.addAttribute("findItem", findItem);
         model.addAttribute("imageFiles",imageFiles);
+        model.addAttribute("comments",comments);
         return "items/readItemForm";
     }
 
+    @PostMapping("items/{itemId}/readItem")
+    public String addComment(@PathVariable("itemId") Long itemId, @ModelAttribute CommentForm form, Model model, @SessionAttribute(name = "loginMember") Member loginMember){
+        Item findItem = itemService.findOne(itemId);
+        Member findMember = memberService.findOne(loginMember.getId());
+
+        Comment comment = new Comment();
+        comment.setName(findMember.getName());
+        comment.setContent(form.getContent());
+        comment.setWriteDate(LocalDateTime.now());
+        comment.setMember(findMember);
+        comment.setItem(findItem);
+
+        commentRepository.save(comment);
+        List<Comment> comments = commentRepository.findCommentItemId(itemId);
+        model.addAttribute("comments",comments);
+        model.addAttribute("findItem",findItem);
+        return "items/readItemForm";
+
+    }
     @PostMapping("items/{itemId}/edit")
     public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") ItemForm form) {
         itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
