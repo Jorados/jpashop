@@ -8,6 +8,7 @@ import jpabook.jpashop.domain.embedded.UploadFile;
 import jpabook.jpashop.file.FileStore;
 import jpabook.jpashop.repository.CommentRepository;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.LikesService;
 import jpabook.jpashop.service.MemberService;
 import jpabook.jpashop.service.UploadFile2Service;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -40,6 +42,7 @@ public class ItemController {
     private final UploadFile2Service uploadFile2Service;
     private final CommentRepository commentRepository;
     private final MemberService memberService;
+    private final LikesService likesService;
     @GetMapping("/items/new")
     public String createForm(Model model) {
         model.addAttribute("form", new ItemForm());
@@ -108,8 +111,11 @@ public class ItemController {
 
     //상품목록
     @GetMapping("/items")
-    public String list(Model model) {
+    public String list(Model model,@SessionAttribute(name="loginMember") Member loginMember) {
         List<Item> items = itemService.findItems();
+        Map<Long,Integer> myLikeItemId = likesService.getLikeItemId(loginMember.getId(),items);
+
+        model.addAttribute("myLikeItemId",myLikeItemId);
         model.addAttribute("items", items);
         return "items/itemList";
     }

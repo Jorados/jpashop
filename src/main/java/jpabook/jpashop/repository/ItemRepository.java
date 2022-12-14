@@ -1,5 +1,6 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.domain.Board;
 import jpabook.jpashop.domain.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -42,6 +43,13 @@ public class ItemRepository {
     public List<Item> findImageFiles2(String storeFileName){
         return em.createQuery("select i from Item i inner join i.UploadFile2 u WHERE u.storeFileName =:storeFileName",Item.class)
                 .setParameter("storeFileName", storeFileName)
+                .getResultList();
+    }
+
+    //내가 좋아요 누른 글 조회
+    public List<Item> findLikesItem(Long memberId){
+        return em.createQuery("select l.item from Likes l where l.member.id = :memberId",Item.class)
+                .setParameter("memberId",memberId)
                 .getResultList();
     }
 }

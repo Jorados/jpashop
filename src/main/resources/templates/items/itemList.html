@@ -1,5 +1,41 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://kit.fontawesome.com/843c438b04.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+      $(document).ready(function() {
+        var iconId;
+
+        $('i').click(function() {
+          var likeClass = $(this).attr( 'class' );
+          var itemId = $(this).attr( 'name' );
+          iconId = $(this).attr( 'id' ); // 클릭한 아이콘 아이디 값 저장
+
+          if (likeClass == 'fa-solid fa-heart') {  // 하트가 눌러져 있다면 -> 취소로직
+            var likeCheck = 1;
+            $(this).attr('class', 'fa-regular fa-heart');
+          } else if (likeClass == 'fa-regular fa-heart') { // 하트가 안눌러져 있다면 -> 누르는 로직
+            var likeCheck = 0;
+            $(this).attr('class', 'fa-solid fa-heart');
+          }
+
+          $.ajax({
+            url: "/like2",
+            data: {
+              likeCheck : likeCheck,
+              itemId : itemId,
+            },
+            type: "POST",
+
+            success: function(updateLikeCnt) {
+              $('#'+ iconId ).text(updateLikeCnt);
+            }
+
+          });
+        })
+      });
+    </script>
 <head th:replace="fragments/header :: header" />
 <script>
     var num = 1;
@@ -22,6 +58,7 @@
                 <th>가격</th>
                 <th>재고수량</th>
                 <th>조회수</th>
+                <th>좋아요</th>
                 <th></th>
             </tr>
             </thead>
@@ -36,6 +73,17 @@
                 <td th:text="${item.price}"></td>
                 <td th:text="${item.stockQuantity}"></td>
                 <td th:text="${item.countVisit}"></td>
+                <td>
+                    <div>
+                        <li class="d-flex align-items-center mx-2" th:with="key=${item.id}">
+                            <i th:id="'iconOrderedByD_' + ${item.id}"
+                               th:class="${myLikeItemId.get(key) == 1} ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"
+                               th:name="${item.id}"
+                               th:text="${item.likeCount2}"
+                               style="color: red;">10</i>
+                        </li>
+                    </div>
+                </td>
                 <td>
                     <a href="#" th:href="@{/items/{itemId}/edit (itemId=${item.id})}" class="btn btn-primary" role="button">수정</a>
                     <a href="#" th:href="@{/items/{itemId}/readItem (itemId=${item.id})}" class="btn btn-primary" role="button">조회</a>
