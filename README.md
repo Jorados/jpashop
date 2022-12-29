@@ -1,1 +1,1 @@
-# Spring jpa활용 crud기반 연습
+# Spring jpa활용 crud 연습 쇼핑몰,게시판 
